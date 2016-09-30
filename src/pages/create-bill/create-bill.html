@@ -1,0 +1,47 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>New Bill</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="create-bill">
+  <form [formGroup]="newBillForm" (submit)="createBill()" novalidate>
+    <ion-item>
+      <ion-label stacked>Bill Name</ion-label>
+      <ion-input #name formControlName="name" type="text" (change)="elementChanged(name)"
+      placeholder="How do you identify this bill?"
+      [class.invalid]="!newBillForm.controls.name.valid && (nameChanged || submitAttempt)"></ion-input>
+    </ion-item>
+    <ion-item class="error-message" *ngIf="!newBillForm.controls.name.valid  && (nameChanged || submitAttempt)">
+      <p>You need to enter a name for the bill.</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Amount</ion-label>
+      <ion-input #amount formControlName="amount" type="number" (change)="elementChanged(amount)"
+      placeholder="How much do you have to pay?"
+      [class.invalid]="!newBillForm.controls.amount.valid && (passwordChanged || submitAttempt)"></ion-input>
+    </ion-item>
+    <ion-item class="error-message" *ngIf="!newBillForm.controls.amount.valid  && (amountChanged || submitAttempt)">
+      <p>You need to specify an amount</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Due Date</ion-label>
+      <ion-datetime displayFormat="D MMM, YY" pickerFormat="DD MMM YYYY"
+        formControlName="dueDate" max="2020-10-31"
+      [class.invalid]="!newBillForm.controls.dueDate.valid && (passwordChanged || submitAttempt)">
+    </ion-datetime>
+    </ion-item>
+    <ion-item class="error-message" *ngIf="!newBillForm.controls.dueDate.valid  && (dueDateChanged || submitAttempt)">
+      <p>When do you have to pay this?</p>
+    </ion-item>
+
+    <button block type="submit">
+      Create new bill
+    </button>
+  </form>
+</ion-content>
