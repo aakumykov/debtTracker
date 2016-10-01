@@ -1,23 +1,21 @@
-import { NavController, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { Component } from '@angular/core';
-import { FormBuilder, Validators, ControlGroup } from '@angular/common';
-import { AuthData } from '../../providers/auth-data/auth-data';
-import { LoginPage } from '../login/login';
+import { FormBuilder, Validators } from '@angular/forms';
+import { AuthData } from '../../providers/auth-data';
 import { EmailValidator } from '../../validators/email';
 
 @Component({
-  templateUrl: 'build/pages/reset-password/reset-password.html',
-  providers: [AuthData]
+  templateUrl: 'reset-password.html',
 })
 export class ResetPasswordPage {
-  public resetPasswordForm: ControlGroup;
+  public resetPasswordForm;
   emailChanged: boolean = false;
   passwordChanged: boolean = false;
   submitAttempt: boolean = false;
 
 
   constructor(public authData: AuthData, public formBuilder: FormBuilder, public nav: NavController,
-    public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
+    public alertCtrl: AlertController) {
 
     this.resetPasswordForm = formBuilder.group({
       email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
@@ -39,7 +37,6 @@ export class ResetPasswordPage {
    * If the form is invalid it will just log the form value, feel free to handle that as you like.
    */
   resetPassword(){
-
     this.submitAttempt = true;
 
     if (!this.resetPasswordForm.valid){
@@ -59,7 +56,6 @@ export class ResetPasswordPage {
           ]
         });
         alert.present();
-
       }, (error) => {
         var errorMessage: string = error.message;
         let errorAlert = this.alertCtrl.create({
@@ -71,12 +67,8 @@ export class ResetPasswordPage {
             }
           ]
         });
-
         errorAlert.present();
       });
     }
-
   }
-
-
 }

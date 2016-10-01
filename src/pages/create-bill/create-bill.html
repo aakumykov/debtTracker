@@ -1,11 +1,8 @@
 <ion-header>
-
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>New Bill</ion-title>
   </ion-navbar>
-
 </ion-header>
-
 
 <ion-content padding class="create-bill">
   <form [formGroup]="newBillForm" (submit)="createBill()" novalidate>
@@ -40,7 +37,7 @@
       <p>When do you have to pay this?</p>
     </ion-item>
 
-    <button block type="submit">
+    <button ion-button block type="submit">
       Create new bill
     </button>
   </form>

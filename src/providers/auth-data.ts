@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
-import * as firebase from 'firebase';
 
+declare var firebase;
 @Injectable()
 export class AuthData {
   userProfile: any;
@@ -19,7 +19,7 @@ export class AuthData {
     return this.af.auth.login({ email: newEmail, password: newPassword });
   }
 
-  anonymousLogin(){
+  anonymousLogin(): any{
     return this.af.auth.login({
       provider: AuthProviders.Anonymous,
       method: AuthMethods.Anonymous,

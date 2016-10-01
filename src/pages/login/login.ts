@@ -1,21 +1,20 @@
 import { NavController, LoadingController, AlertController } from 'ionic-angular';
 import { Component } from '@angular/core';
-import { FormBuilder, Validators, ControlGroup } from '@angular/common';
-import { AuthData } from '../../providers/auth-data/auth-data';
-import { SignupPage } from '../signup/signup';
+import { FormBuilder, Validators } from '@angular/forms';
+import { AuthData } from '../../providers/auth-data';
 import { HomePage } from '../home/home';
 import { ResetPasswordPage } from '../reset-password/reset-password';
 import { EmailValidator } from '../../validators/email';
 
 @Component({
-  templateUrl: 'build/pages/login/login.html',
-  providers: [AuthData]
+  templateUrl: 'login.html',
 })
 export class LoginPage {
-  public loginForm: ControlGroup;
+  public loginForm: any;
   emailChanged: boolean = false;
   passwordChanged: boolean = false;
   submitAttempt: boolean = false;
+  public loading: any;
 
   constructor(public nav: NavController, public authData: AuthData,
     public formBuilder: FormBuilder, public alertCtrl: AlertController,
@@ -41,22 +40,24 @@ export class LoginPage {
       this.authData.loginUser(this.loginForm.value.email, this.loginForm.value.password).then( authData => {
         this.nav.setRoot(HomePage);
       }, error => {
-        let alert = this.alertCtrl.create({
-          message: error.message,
-          buttons: [
-            {
-              text: "Ok",
-              role: 'cancel'
-            }
-          ]
+        this.loading.dismiss().then( () => {
+          let alert = this.alertCtrl.create({
+            message: error.message,
+            buttons: [
+              {
+                text: "Ok",
+                role: 'cancel'
+              }
+            ]
+          });
+          alert.present();
         });
-        alert.present();
       });
 
-      let loading = this.loadingCtrl.create({
+      this.loading = this.loadingCtrl.create({
         dismissOnPageChange: true,
       });
-      loading.present();
+      this.loading.present();
     }
   }
 

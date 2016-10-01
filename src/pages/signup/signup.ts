@@ -1,19 +1,19 @@
 import { NavController, LoadingController, AlertController } from 'ionic-angular';
 import { Component } from '@angular/core';
-import { FormBuilder, Validators, ControlGroup } from '@angular/common';
-import { AuthData } from '../../providers/auth-data/auth-data';
+import { FormBuilder, Validators } from '@angular/forms';
+import { AuthData } from '../../providers/auth-data';
 import { EmailValidator } from '../../validators/email';
 import { HomePage } from '../home/home';
 
 @Component({
-  templateUrl: 'build/pages/signup/signup.html',
-  providers: [AuthData]
+  templateUrl: 'signup.html',
 })
 export class SignupPage {
-  public signupForm: ControlGroup;
+  public signupForm;
   emailChanged: boolean = false;
   passwordChanged: boolean = false;
   submitAttempt: boolean = false;
+  loading;
 
 
   constructor(public nav: NavController, public authData: AuthData, public formBuilder: FormBuilder,
@@ -48,23 +48,25 @@ export class SignupPage {
       this.authData.linkAccount(this.signupForm.value.email, this.signupForm.value.password).then(() => {
         this.nav.setRoot(HomePage);
       }, (error) => {
-        var errorMessage: string = error.message;
-          let alert = this.alertCtrl.create({
-            message: errorMessage,
-            buttons: [
-              {
-                text: "Ok",
-                role: 'cancel'
-              }
-            ]
-          });
+        this.loading.dismiss().then( () => {
+          var errorMessage: string = error.message;
+            let alert = this.alertCtrl.create({
+              message: errorMessage,
+              buttons: [
+                {
+                  text: "Ok",
+                  role: 'cancel'
+                }
+              ]
+            });
           alert.present();
+        });
       });
 
-      let loading = this.loadingCtrl.create({
+      this.loading = this.loadingCtrl.create({
         dismissOnPageChange: true,
       });
-      loading.present();
+      this.loading.present();
     }
   }
 }

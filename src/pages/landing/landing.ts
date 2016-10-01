@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
-/*import { LoginPage } from '../login/login';
-import { HomePage } from '../home/home';*/
-import { AuthData } from '../../providers/auth-data/auth-data';
+import { LoginPage } from '../login/login';
+import { HomePage } from '../home/home';
+import { AuthData } from '../../providers/auth-data';
 
 @Component({
-  templateUrl: 'build/pages/landing/landing.html',
+  templateUrl: 'landing.html',
 })
 export class LandingPage {
 
-  constructor(private navCtrl: NavController, public authData: AuthData, public loadingCtrl: LoadingController) {}
+  constructor(public navCtrl: NavController, public authData: AuthData, 
+    public loadingCtrl: LoadingController) {}
 
-  /*goToLogin(){
+  goToLogin(){
     this.navCtrl.push(LoginPage);
   }
 
@@ -23,6 +24,5 @@ export class LandingPage {
       dismissOnPageChange: true
     });
     loading.present();
-  }*/
-
+  }
 }

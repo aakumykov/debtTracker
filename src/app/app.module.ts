@@ -12,20 +12,25 @@ import { ResetPasswordPage } from '../pages/reset-password/reset-password';
 import { SignupPage } from '../pages/signup/signup';
 
 // Importing providers
-import { AuthData } from '../providers/auth-data/auth-data';
-import { BillData } from '../providers/bill-data/bill-data';
+import { AuthData } from '../providers/auth-data';
+import { BillData } from '../providers/bill-data';
 
 // Import the AF2 Module
-import { AngularFireModule } from 'angularfire2';
+import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
 // AF2 Settings
 export const firebaseConfig = {
-  apiKey: "AIzaSyAah-h8dK9UEpGH2gJMem8RHmigyPOGRbk",
-  authDomain: "catalogo-fuxion-1e502.firebaseapp.com",
-  databaseURL: "https://catalogo-fuxion-1e502.firebaseio.com",
-  storageBucket: "catalogo-fuxion.appspot.com",
-  messagingSenderId: "471741240034"
+  apiKey: "AIzaSyALKfevapBOYK202f6k5mPPfMrT1MHDv5A",
+    authDomain: "bill-tracker-e5746.firebaseapp.com",
+    databaseURL: "https://bill-tracker-e5746.firebaseio.com",
+    storageBucket: "bill-tracker-e5746.appspot.com",
+    messagingSenderId: "508248799540"
 };
+
+const myFirebaseAuthConfig = {
+  provider: AuthProviders.Password,
+  method: AuthMethods.Password
+}
 
 @NgModule({
   declarations: [
@@ -40,7 +45,7 @@ export const firebaseConfig = {
   ],
   imports: [
     IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig)
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -1,18 +1,17 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ActionSheetController, Platform, AlertController } from 'ionic-angular';
-import { BillData } from '../../providers/bill-data/bill-data';
-import { AuthData } from '../../providers/auth-data/auth-data';
+import { BillData } from '../../providers/bill-data';
+import { AuthData } from '../../providers/auth-data';
 import { Camera } from 'ionic-native';
 import { SignupPage } from '../signup/signup';
 
 
 @Component({
-  templateUrl: 'build/pages/bill-detail/bill-detail.html',
-  providers: [BillData, AuthData]
+  templateUrl: 'bill-detail.html',
 })
 export class BillDetailPage {
   public bill: any;
-  constructor(private navCtrl: NavController, public navParams: NavParams, public platform: Platform,
+  constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform,
     public actionCtrl: ActionSheetController, public billData: BillData, public authData: AuthData,
     public alertCtrl: AlertController) {
 

@@ -1,20 +1,19 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { FormBuilder, Validators, ControlGroup } from '@angular/common';
-import { BillData } from '../../providers/bill-data/bill-data';
+import { FormBuilder, Validators } from '@angular/forms';
+import { BillData } from '../../providers/bill-data';
 
 @Component({
-  templateUrl: 'build/pages/create-bill/create-bill.html',
-  providers: [BillData]
+  templateUrl: 'create-bill.html',
 })
 export class CreateBillPage {
-  public newBillForm: ControlGroup;
+  public newBillForm;
   nameChanged: boolean = false;
   amountChanged: boolean = false;
   dueDateChanged: boolean = false;
   submitAttempt: boolean = false;
 
-  constructor(private navCtrl: NavController, public billData: BillData, public formBuilder: FormBuilder) {
+  constructor(public navCtrl: NavController, public billData: BillData, public formBuilder: FormBuilder) {
     this.newBillForm = formBuilder.group({
       name: ['', Validators.required],
       amount: ['', Validators.required],

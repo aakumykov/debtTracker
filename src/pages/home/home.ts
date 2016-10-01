@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController, ActionSheetController, Platform } from 'ionic-angular';
-import { BillData } from '../../providers/bill-data/bill-data';
+import { BillData } from '../../providers/bill-data';
 import { CreateBillPage } from '../create-bill/create-bill';
 import { BillDetailPage } from '../bill-detail/bill-detail';
 
 @Component({
-  templateUrl: 'build/pages/home/home.html',
-  providers: [BillData]
+  templateUrl: 'home.html',
 })
 export class HomePage {
   public billList: any;

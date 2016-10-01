@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar primary>
+  <ion-navbar color="primary">
     <ion-title>
       Create an Account
     </ion-title>
@@ -8,7 +8,7 @@
 
 
 <ion-content padding class="signup">
-  <img src="img/logo.jpg" class="auth-img">
+  <img src="assets/img/logo.jpg" class="auth-img">
   <form [formGroup]="signupForm" (submit)="signupUser()" novalidate>
 
     <ion-item>
@@ -31,7 +31,7 @@
       <p>Your password needs more than 6 characters.</p>
     </ion-item>
 
-    <button block type="submit">
+    <button ion-button block type="submit">
       Create an Account
     </button>
 
