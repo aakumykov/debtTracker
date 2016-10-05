@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthData } from '../../providers/auth-data';
 import { EmailValidator } from '../../validators/email';
-import { HomePage } from '../home/home';
 
 @Component({
   templateUrl: 'signup.html',
@@ -46,7 +45,7 @@ export class SignupPage {
       console.log(this.signupForm.value);
     } else {
       this.authData.linkAccount(this.signupForm.value.email, this.signupForm.value.password).then(() => {
-        this.nav.setRoot(HomePage);
+        this.nav.pop();
       }, (error) => {
         this.loading.dismiss().then( () => {
           var errorMessage: string = error.message;

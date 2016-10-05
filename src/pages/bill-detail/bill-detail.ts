@@ -5,12 +5,13 @@ import { AuthData } from '../../providers/auth-data';
 import { Camera } from 'ionic-native';
 import { SignupPage } from '../signup/signup';
 
-
 @Component({
   templateUrl: 'bill-detail.html',
 })
 export class BillDetailPage {
   public bill: any;
+  public placeholderPicture: string = "assets/img/debt-collector.jpg";
+  
   constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform,
     public actionCtrl: ActionSheetController, public billData: BillData, public authData: AuthData,
     public alertCtrl: AlertController) {

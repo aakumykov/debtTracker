@@ -20,7 +20,7 @@
       <ion-label stacked>Amount</ion-label>
       <ion-input #amount formControlName="amount" type="number" (change)="elementChanged(amount)"
       placeholder="How much do you have to pay?"
-      [class.invalid]="!newBillForm.controls.amount.valid && (passwordChanged || submitAttempt)"></ion-input>
+      [class.invalid]="!newBillForm.controls.amount.valid && (amountChanged || submitAttempt)"></ion-input>
     </ion-item>
     <ion-item class="error-message" *ngIf="!newBillForm.controls.amount.valid  && (amountChanged || submitAttempt)">
       <p>You need to specify an amount</p>
@@ -30,7 +30,7 @@
       <ion-label>Due Date</ion-label>
       <ion-datetime displayFormat="D MMM, YY" pickerFormat="DD MMM YYYY"
         formControlName="dueDate" max="2020-10-31"
-      [class.invalid]="!newBillForm.controls.dueDate.valid && (passwordChanged || submitAttempt)">
+      [class.invalid]="!newBillForm.controls.dueDate.valid && (dueDateChanged || submitAttempt)">
     </ion-datetime>
     </ion-item>
     <ion-item class="error-message" *ngIf="!newBillForm.controls.dueDate.valid  && (dueDateChanged || submitAttempt)">
