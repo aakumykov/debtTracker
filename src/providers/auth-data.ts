@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
 import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 
-declare var firebase;
+
 @Injectable()
 export class AuthData {
   userProfile: any;
   fireAuth: any;
   constructor(public af: AngularFire) {
     this.userProfile = firebase.database().ref('/userProfile');
-    this.fireAuth = firebase.auth().currentUser;
+    af.auth.subscribe( user => {
+      if (user) {
+        this.fireAuth = user;
+      }
+    });
   }
 
   getUser(){

@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, ActionSheetController, Platform } from 'ionic-angular';
 import { BillData } from '../../providers/bill-data';
+import { AuthData } from '../../providers/auth-data';
 import { CreateBillPage } from '../create-bill/create-bill';
 import { BillDetailPage } from '../bill-detail/bill-detail';
+import { LandingPage } from '../landing/landing';
 
 @Component({
   templateUrl: 'home.html',
@@ -10,7 +12,8 @@ import { BillDetailPage } from '../bill-detail/bill-detail';
 export class HomePage {
   public billList: any;
   constructor(public navCtrl: NavController, public billData: BillData,
-    public actionCtrl: ActionSheetController, public platform: Platform) {
+    public actionCtrl: ActionSheetController, public platform: Platform, 
+    public authData: AuthData) {
     this.billList = this.billData.getBillList();
 
   }
@@ -64,5 +67,9 @@ export class HomePage {
       ]
     });
     action.present();
+  }
+
+  logMeOut() {
+    this.authData.logoutUser();
   }
 }
