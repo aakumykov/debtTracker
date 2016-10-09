@@ -4,6 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { BillData } from '../../providers/bill-data';
 
 @Component({
+  selector: 'page-create-bill',
   templateUrl: 'create-bill.html',
 })
 export class CreateBillPage {

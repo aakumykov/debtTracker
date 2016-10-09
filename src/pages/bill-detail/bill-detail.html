@@ -12,7 +12,7 @@
 </ion-header>
 
 
-<ion-content padding class="bill-detail">
+<ion-content padding>
   <img [src]="bill.image || placeholderPicture" (click)="uploadPicture(bill?.$key)" />
   <span *ngIf="!bill.image">Click the image to upload a picture of your debt/bill</span>
 

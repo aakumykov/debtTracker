@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
+import { 
+  AngularFire, 
+  AuthProviders, 
+  AuthMethods } from 'angularfire2';
+import firebase from 'firebase';
 
 
 @Injectable()
@@ -8,6 +12,7 @@ export class AuthData {
   fireAuth: any;
   constructor(public af: AngularFire) {
     this.userProfile = firebase.database().ref('/userProfile');
+
     af.auth.subscribe( user => {
       if (user) {
         this.fireAuth = user;
@@ -30,7 +35,7 @@ export class AuthData {
     });
   }
 
-  linkAccount(email, password): any {
+  linkAccount(email: string, password: string): any {
     var credential = (<any> firebase.auth.EmailAuthProvider).credential(email, password);
     return this.fireAuth.link(credential).then( (user) => {
       this.userProfile.child(user.uid).update({

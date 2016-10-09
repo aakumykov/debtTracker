@@ -5,6 +5,7 @@ import { HomePage } from '../home/home';
 import { AuthData } from '../../providers/auth-data';
 
 @Component({
+  selector: 'page-landing',
   templateUrl: 'landing.html',
 })
 export class LandingPage {

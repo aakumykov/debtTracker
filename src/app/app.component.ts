@@ -14,11 +14,13 @@ export class MyApp {
   rootPage;
 
   constructor(platform: Platform, af: AngularFire) {
-    af.auth.subscribe( user => {
+    let authObserver: any = af.auth.subscribe( user => {
       if (user) {
         this.rootPage = HomePage;
+        authObserver();
       } else {
         this.rootPage = LandingPage;
+        authObserver();
       }
     });
     platform.ready().then(() => {

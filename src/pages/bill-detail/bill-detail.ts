@@ -1,11 +1,17 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ActionSheetController, Platform, AlertController } from 'ionic-angular';
+import { 
+  NavController, 
+  NavParams, 
+  ActionSheetController, 
+  Platform, 
+  AlertController } from 'ionic-angular';
 import { BillData } from '../../providers/bill-data';
 import { AuthData } from '../../providers/auth-data';
 import { Camera } from 'ionic-native';
 import { SignupPage } from '../signup/signup';
 
 @Component({
+  selector: 'page-bill-detail',
   templateUrl: 'bill-detail.html',
 })
 export class BillDetailPage {

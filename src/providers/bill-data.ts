@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
+import { 
+  AngularFire, 
+  FirebaseListObservable, 
+  FirebaseObjectObservable } from 'angularfire2';
+import firebase from 'firebase';
 
-declare var firebase;
 @Injectable()
 export class BillData {
   public billList: FirebaseListObservable<any>;

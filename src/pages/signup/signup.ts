@@ -1,10 +1,14 @@
-import { NavController, LoadingController, AlertController } from 'ionic-angular';
+import { 
+  NavController, 
+  LoadingController, 
+  AlertController } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthData } from '../../providers/auth-data';
 import { EmailValidator } from '../../validators/email';
 
 @Component({
+  selector: 'page-signup',
   templateUrl: 'signup.html',
 })
 export class SignupPage {

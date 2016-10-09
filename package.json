@@ -25,6 +25,9 @@
     "@ionic/app-scripts": "latest",
     "typescript": "^2.0.3"
   },
+  "config": {
+    "ionic_rollup": "./scripts/rollup.config.js"
+  },
   "description": "debtTracker: An Ionic project",
   "cordovaPlugins": [
     "cordova-plugin-device",

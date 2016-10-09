@@ -7,6 +7,7 @@ import { ResetPasswordPage } from '../reset-password/reset-password';
 import { EmailValidator } from '../../validators/email';
 
 @Component({
+  selector: 'page-login',
   templateUrl: 'login.html',
 })
 export class LoginPage {
