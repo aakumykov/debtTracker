@@ -4,6 +4,7 @@ import { BillData } from '../../providers/bill-data';
 import { AuthData } from '../../providers/auth-data';
 import { CreateBillPage } from '../create-bill/create-bill';
 import { BillDetailPage } from '../bill-detail/bill-detail';
+import { LandingPage } from '../landing/landing';
 
 @Component({
   selector: 'page-home',
@@ -70,6 +71,8 @@ export class HomePage {
   }
 
   logMeOut() {
-    this.authData.logoutUser();
+    this.authData.logoutUser().then( () => {
+      this.navCtrl.push(LandingPage);
+    });
   }
 }

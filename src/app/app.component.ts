@@ -17,10 +17,10 @@ export class MyApp {
     let authObserver: any = af.auth.subscribe( user => {
       if (user) {
         this.rootPage = HomePage;
-        authObserver();
+        authObserver.unsubscribe();
       } else {
         this.rootPage = LandingPage;
-        authObserver();
+        authObserver.unsubscribe();
       }
     });
     platform.ready().then(() => {
