@@ -52,7 +52,7 @@ export class AuthData {
   }
 
   logoutUser(): any {
-    return this.af.auth.logout();
+    return firebase.auth().signOut();
   }
 
 }
