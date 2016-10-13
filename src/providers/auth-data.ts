@@ -15,7 +15,7 @@ export class AuthData {
 
     af.auth.subscribe( user => {
       if (user) {
-        this.fireAuth = user;
+        this.fireAuth = user.auth;
         console.log(user);
       }
     });
@@ -37,7 +37,7 @@ export class AuthData {
   }
 
   linkAccount(email: string, password: string): any {
-    var credential = (<any> firebase.auth.EmailAuthProvider).credential(email, password);
+    var credential = firebase.auth.EmailAuthProvider.credential(email, password);
     return this.fireAuth.link(credential).then( (user) => {
       this.userProfile.child(user.uid).update({
         email: email,

@@ -29,7 +29,7 @@ export class BillDetailPage {
   }
 
   uploadPicture(billId){
-    if(this.authData.getUser().anonymous == true){
+    if(this.authData.getUser().isAnonymous == true){
       let alert = this.alertCtrl.create({
         message: "If you want to continue you'll need to provide an email and create a password",
         buttons: [
