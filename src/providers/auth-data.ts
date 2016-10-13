@@ -5,7 +5,7 @@ import {
   AuthMethods } from 'angularfire2';
 
 
-declare let firebase;
+declare let firebase: any;
 @Injectable()
 export class AuthData {
   userProfile: any;
@@ -16,6 +16,7 @@ export class AuthData {
     af.auth.subscribe( user => {
       if (user) {
         this.fireAuth = user;
+        console.log(user);
       }
     });
   }

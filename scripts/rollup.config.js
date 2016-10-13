@@ -1,4 +1,4 @@
-console.log("I'm the Hulk");
+console.log("I'm the Hulk!");
 var nodeResolve = require('rollup-plugin-node-resolve');
 var commonjs = require('rollup-plugin-commonjs');
 var globals = require('rollup-plugin-node-globals');
@@ -32,8 +32,7 @@ var rollupConfig = {
    */
   dest: 'main.js',
 
-  // Avoid eval errors (hope to remove this one soon).
-  useStrict: false,
+  useStrict: false, // This prevents build errors with the 'eval' tag
 
   /**
    * plugins: Array of plugin objects, or a single plugin object.
@@ -42,15 +41,15 @@ var rollupConfig = {
   plugins: [
     builtins(),
     commonjs({
-      include: [
-        'node_modules/rxjs/**', // firebase needs rxjs to avoid build errors
-        'node_modules/firebase/**', // here we're calling firebase.
-        'node_modules/angularfire2/**' // here we're calling angularfire2.
-      ],
-      namedExports: {
-        'node_modules/firebase/firebase.js': ['initializeApp', 'auth', 'database'],
-        'node_modules/angularfire2/node_modules/firebase/firebase-browser.js': ['initializeApp', 'auth', 'database']
-      }
+        include: [
+            'node_modules/rxjs/**', // firebase needs rxjs to avoid build errors
+            'node_modules/firebase/**', // here we're calling firebase.
+            'node_modules/angularfire2/**' // here we're calling angularfire2.
+        ],
+        namedExports: {
+            'node_modules/firebase/firebase.js': ['initializeApp', 'auth', 'database'],
+            'node_modules/angularfire2/node_modules/firebase/firebase-browser.js': ['initializeApp', 'auth', 'database']
+        }
     }),
     nodeResolve({
       module: true,
