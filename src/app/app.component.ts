@@ -11,12 +11,14 @@ import { AngularFire } from 'angularfire2';
   template: `<ion-nav [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
-  rootPage: any = HomePage;
+  rootPage: any;
 
   constructor(platform: Platform, af: AngularFire) {
     af.auth.subscribe( user => {
       if (!user) {
         this.rootPage = LandingPage;
+      } else {
+        this.rootPage = HomePage;
       }
     });
     platform.ready().then(() => {

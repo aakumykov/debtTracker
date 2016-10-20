@@ -3,20 +3,19 @@ import {
   AngularFire, 
   FirebaseListObservable, 
   FirebaseObjectObservable } from 'angularfire2';
+
 import firebase from 'firebase';
 
 @Injectable()
 export class BillData {
-  public billList: FirebaseListObservable<any>;
-  public billDetail: FirebaseObjectObservable<any>;
-  public userId: string;
-  storageRef: any;
+  billList: FirebaseListObservable<any>;
+  billDetail: FirebaseObjectObservable<any>;
+  userId: string;
 
   constructor(public af: AngularFire) {
     this.af.auth.subscribe(auth => {
       if (auth) {
         this.billList = this.af.database.list('/userProfile/' + auth.uid + '/billList');
-        this.storageRef = firebase.storage().ref(auth.uid);
         this.userId = auth.uid;
       }
     });
@@ -51,7 +50,8 @@ export class BillData {
   }
 
   takeBillPhoto(billId: string, imageURL: string){
-    return this.storageRef.child(billId).child('billPicture')
+    const storageRef = firebase.storage().ref(this.userId);
+    return storageRef.child(billId).child('billPicture')
       .putString(imageURL, 'base64', {contentType: 'image/png'})
         .then( pictureSnapshot => {
           this.billList.update(billId, {

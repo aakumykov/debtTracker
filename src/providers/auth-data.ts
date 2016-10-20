@@ -3,19 +3,16 @@ import {
   AngularFire, 
   AuthProviders, 
   AuthMethods } from 'angularfire2';
+
 import firebase from 'firebase';
 
 @Injectable()
 export class AuthData {
-  userProfile: any;
   fireAuth: any;
   constructor(public af: AngularFire) {
-    this.userProfile = firebase.database().ref('/userProfile');
-
     af.auth.subscribe( user => {
       if (user) {
         this.fireAuth = user.auth;
-        console.log(user);
       }
     });
   }
@@ -36,9 +33,10 @@ export class AuthData {
   }
 
   linkAccount(email: string, password: string): any {
-    var credential = firebase.auth.EmailAuthProvider.credential(email, password);
+    const credential = firebase.auth.EmailAuthProvider.credential(email, password);
+    const userProfile = firebase.database().ref('/userProfile');
     return this.fireAuth.link(credential).then( (user) => {
-      this.userProfile.child(user.uid).update({
+      userProfile.child(user.uid).update({
         email: email,
       });
     }, (error) => {

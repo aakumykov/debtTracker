@@ -16,7 +16,6 @@ export class HomePage {
     public actionCtrl: ActionSheetController, public platform: Platform, 
     public authData: AuthData) {
     this.billList = this.billData.getBillList();
-
   }
 
   createBill(){
