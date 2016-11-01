@@ -4,8 +4,6 @@ import {
   FirebaseListObservable, 
   FirebaseObjectObservable } from 'angularfire2';
 
-import firebase from 'firebase';
-
 @Injectable()
 export class BillData {
   billList: FirebaseListObservable<any>;
