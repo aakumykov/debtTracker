@@ -13,8 +13,8 @@
 
 
 <ion-content padding>
-  <img [src]="bill.image || placeholderPicture" (click)="uploadPicture(bill?.$key)" />
-  <span *ngIf="!bill.image">Click the image to upload a picture of your debt/bill</span>
+  <img [src]="bill.picture || placeholderPicture" (click)="uploadPicture(bill?.$key)" />
+  <span *ngIf="!bill.picture">Click the image to upload a picture of your debt/bill</span>
 
   <ion-card>
   <ion-card-header>
