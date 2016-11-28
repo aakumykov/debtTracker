@@ -4,7 +4,7 @@ import {
   AuthProviders, 
   AuthMethods } from 'angularfire2';
 
-/*import firebase from 'firebase';*/
+import firebase from 'firebase';
 
 @Injectable()
 export class AuthData {
