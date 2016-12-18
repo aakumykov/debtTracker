@@ -1,61 +1,18 @@
 import { Injectable } from '@angular/core';
-import { 
-  AngularFire, 
-  FirebaseListObservable, 
-  FirebaseObjectObservable } from 'angularfire2';
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/map';
 
+/*
+  Generated class for the BillData provider.
+
+  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
+  for more info on providers and Angular 2 DI.
+*/
 @Injectable()
 export class BillData {
-  billList: FirebaseListObservable<any>;
-  billDetail: FirebaseObjectObservable<any>;
-  userId: string;
 
-  constructor(public af: AngularFire) {
-    this.af.auth.subscribe(auth => {
-      if (auth) {
-        this.billList = this.af.database.list('/userProfile/' + auth.uid + '/billList');
-        this.userId = auth.uid;
-      }
-    });
-
-  }
-
-  getBillList(){
-    return this.billList;
-  }
-
-  getBill(billId: string){
-    return this.billDetail = this.af.database.object('/userProfile/' + this.userId + '/billList/' + billId);
-  }
-
-  createBill(name: string, amount: number, dueDate: string = null){
-    return this.billList.push({
-      name: name,
-      amount: amount,
-      dueDate: dueDate,
-      paid: false
-    });
-  }
-
-  removeBill(billId: string){
-    return this.billList.remove(billId);
-  }
-
-  payBill(billId: string){
-    return this.billList.update(billId, {
-      paid: true
-    });
-  }
-
-  takeBillPhoto(billId: string, imageURL: string){
-    const storageRef = firebase.storage().ref(this.userId);
-    return storageRef.child(billId).child('billPicture')
-      .putString(imageURL, 'base64', {contentType: 'image/png'})
-        .then( pictureSnapshot => {
-          this.billList.update(billId, {
-            picture: pictureSnapshot.downloadURL
-        });
-      });
+  constructor(public http: Http) {
+    console.log('Hello BillData Provider');
   }
 
 }

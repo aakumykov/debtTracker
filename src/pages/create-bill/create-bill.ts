@@ -1,46 +1,22 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { FormBuilder, Validators } from '@angular/forms';
-import { BillData } from '../../providers/bill-data';
+import { NavController, NavParams } from 'ionic-angular';
 
+/*
+  Generated class for the CreateBill page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+*/
 @Component({
   selector: 'page-create-bill',
-  templateUrl: 'create-bill.html',
+  templateUrl: 'create-bill.html'
 })
 export class CreateBillPage {
-  public newBillForm;
-  nameChanged: boolean = false;
-  amountChanged: boolean = false;
-  dueDateChanged: boolean = false;
-  submitAttempt: boolean = false;
 
-  constructor(public navCtrl: NavController, public billData: BillData, public formBuilder: FormBuilder) {
-    this.newBillForm = formBuilder.group({
-      name: ['', Validators.required],
-      amount: ['', Validators.required],
-      dueDate: ['', Validators.required],
-    });
-  }
+  constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
-  elementChanged(input){
-    let field = input.inputControl.name;
-    this[field + "Changed"] = true;
-  }
-
-  createBill(){
-    this.submitAttempt = true;
-
-    if (!this.newBillForm.valid){
-      console.log(this.newBillForm.value);
-    } else {
-      this.billData.createBill(this.newBillForm.value.name, this.newBillForm.value.amount,
-        this.newBillForm.value.dueDate).then( () => {
-        this.navCtrl.pop();
-      }, error => {
-        console.log(error);
-      });
-
-    }
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad CreateBillPage');
   }
 
 }
