@@ -1,22 +1,33 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 
-/*
-  Generated class for the Landing page.
+import { LoginPage } from '../login/login';
+import { HomePage } from '../home/home';
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
+import { AuthData } from '../../providers/auth-data';
+
 @Component({
   selector: 'page-landing',
   templateUrl: 'landing.html'
 })
 export class LandingPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, 
+    public authData: AuthData) {}
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LandingPage');
+  goToLogin(){
+    this.navCtrl.push(LoginPage);
+  }
+
+  goToBillList(){
+    this.authData.anonymousLogin().then( user => {
+      this.navCtrl.setRoot(HomePage);
+    });
+
+    const loading = this.loadingCtrl.create({
+      dismissOnPageChange: true
+    });
+    loading.present();
   }
 
 }
