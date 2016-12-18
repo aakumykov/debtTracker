@@ -1,22 +1,58 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { 
+  NavController, 
+  NavParams, 
+  ActionSheetController, 
+  Platform, 
+  AlertController } from 'ionic-angular';
+import { BillData } from '../../providers/bill-data';
 
-/*
-  Generated class for the BillDetail page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-bill-detail',
   templateUrl: 'bill-detail.html'
 })
 export class BillDetailPage {
+  public bill: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams, 
+    public platform: Platform, public actionCtrl: ActionSheetController, 
+    public billData: BillData, public alertCtrl: AlertController) {
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad BillDetailPage');
+      this.billData.getBill(this.navParams.get("billId"))
+        .subscribe( billSnap => { this.bill = billSnap });
+    }
+
+  showOptions(billId){
+    const action = this.actionCtrl.create({
+      title: 'Modify your bill',
+      buttons: [
+        {
+          text: 'Delete',
+          role: 'destructive',
+          icon: !this.platform.is('ios') ? 'trash' : null,
+          handler: () => {
+            this.billData.removeBill(billId)
+              .then( () => { this.navCtrl.pop(); });
+          }
+        },
+        {
+          text: 'Mark as Paid!',
+          icon: !this.platform.is('ios') ? 'checkmark' : null,
+          handler: () => {
+            this.billData.payBill(billId);
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          icon: !this.platform.is('ios') ? 'close' : null,
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    action.present();
   }
 
 }
