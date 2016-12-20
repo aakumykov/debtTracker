@@ -3,7 +3,7 @@ import { Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { HomePage } from '../pages/home/home';
-import {LandingPage} from '../pages/landing/landing';
+import { LandingPage } from '../pages/landing/landing';
 
 import { AngularFire } from 'angularfire2';
 

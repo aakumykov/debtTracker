@@ -11,6 +11,7 @@ export class CreateBillPage {
   public newBillForm;
   nameChanged: boolean = false;
   amountChanged: boolean = false;
+  dueDateChanged: boolean = false;
   submitAttempt: boolean = false;
 
   constructor(public navCtrl: NavController, public billData: BillData, 
@@ -19,6 +20,7 @@ export class CreateBillPage {
     this.newBillForm = formBuilder.group({
       name: ['', Validators.required],
       amount: ['', Validators.required],
+      dueDate: ['', Validators.required]
     });
   }
 
