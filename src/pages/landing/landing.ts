@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 
 import { LoginPage } from '../login/login';
-import { HomePage } from '../home/home';
 
 import { AuthData } from '../../providers/auth-data';
 
@@ -21,7 +20,7 @@ export class LandingPage {
 
   goToBillList(){
     this.authData.anonymousLogin().then( user => {
-      this.navCtrl.setRoot(HomePage);
+      console.log("Anonymous Login Successful");
     });
 
     const loading = this.loadingCtrl.create({
