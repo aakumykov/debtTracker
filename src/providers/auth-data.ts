@@ -49,7 +49,7 @@ export class AuthData {
   }
 
   logoutUser(): any {
-    return firebase.auth().signOut();
+    return this.af.auth.logout();
   }
 
 }

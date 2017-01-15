@@ -19,7 +19,7 @@ export class LandingPage {
   }
 
   goToBillList(){
-    this.authData.anonymousLogin().then( user => {
+    this.authData.anonymousLogin().then( () => {
       console.log("Anonymous Login Successful");
     });
 

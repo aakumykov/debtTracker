@@ -9,7 +9,6 @@ import { AuthData } from '../../providers/auth-data';
 import { EmailValidator } from '../../validators/email';
 
 // Import the pages.
-import { HomePage } from '../home/home';
 import { ResetPasswordPage } from '../reset-password/reset-password';
 
 @Component({
@@ -49,8 +48,8 @@ export class LoginPage {
       console.log(this.loginForm.value);
     } else {
       this.authData.loginUser(this.loginForm.value.email, 
-        this.loginForm.value.password).then( authData => {
-        this.navCtrl.setRoot(HomePage);
+        this.loginForm.value.password).then( () => {
+          console.log("Login Successful");
       }, error => {
         this.loading.dismiss().then( () => {
           let alert = this.alertCtrl.create({
