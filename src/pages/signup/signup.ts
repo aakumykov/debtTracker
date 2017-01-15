@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthData } from '../../providers/auth-data';
 import { EmailValidator } from '../../validators/email';
-import { HomePage } from '../home/home';
 
 @Component({
   selector: 'page-signup',
@@ -54,7 +53,9 @@ export class SignupPage {
     } else {
       this.authData.linkAccount(this.signupForm.value.email, 
         this.signupForm.value.password).then(() => {
-        this.navCtrl.setRoot(HomePage);
+          this.loading.dismiss().then( () => {
+            this.navCtrl.pop();
+          });
       }, (error) => {
         this.loading.dismiss().then( () => {
           var errorMessage: string = error.message;
@@ -71,9 +72,7 @@ export class SignupPage {
         });
       });
 
-      this.loading = this.loadingCtrl.create({
-        dismissOnPageChange: true,
-      });
+      this.loading = this.loadingCtrl.create();
       this.loading.present();
     }
   }

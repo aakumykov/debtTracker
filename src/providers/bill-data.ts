@@ -4,6 +4,8 @@ import {
   FirebaseListObservable,
   FirebaseObjectObservable } from 'angularfire2';
 
+import firebase from 'firebase';
+
 @Injectable()
 export class BillData {
   billList: FirebaseListObservable<any>;
@@ -27,7 +29,7 @@ export class BillData {
   }
 
   createBill(name: string, amount: number, dueDate: string = null, paid: boolean = false){
-    return this.billList.push({ name, amount, dueDate });
+    return this.billList.push({ name, amount, dueDate, paid });
   }
 
   removeBill(billId: string): any { return this.billList.remove(billId); }
