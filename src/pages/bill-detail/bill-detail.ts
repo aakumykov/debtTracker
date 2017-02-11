@@ -7,7 +7,7 @@ import {
   AlertController } from 'ionic-angular';
 import { BillData } from '../../providers/bill-data';
 import { AuthData } from '../../providers/auth-data';
-import { Camera } from 'ionic-native';
+import { Camera } from '@ionic-native/camera'
 import { SignupPage } from '../signup/signup';
 
 

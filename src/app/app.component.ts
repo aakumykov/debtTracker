@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
-import { StatusBar, Splashscreen } from 'ionic-native';
+import { StatusBar } from '@ionic-native/statusbar';
+import { Splashscreen } from '@ionic-native/splashscreen';
 
 import { HomePage } from '../pages/home/home';
 import { LandingPage } from '../pages/landing/landing';
@@ -12,15 +13,17 @@ import { AngularFire } from 'angularfire2';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage;
+  rootPage: any;
 
   constructor(platform: Platform, af: AngularFire) {
 
-    af.auth.subscribe( user => {
+    const authListener = af.auth.subscribe( user => {
       if (user){
         this.rootPage = HomePage;
+        authListener.unsubscribe();
       } else {
         this.rootPage = LandingPage;
+        authListener.unsubscribe();
       }
     });
 

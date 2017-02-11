@@ -5,7 +5,6 @@ import {
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthData } from '../../providers/auth-data';
-import { EmailValidator } from '../../validators/email';
 
 @Component({
   selector: 'page-signup',
@@ -13,9 +12,6 @@ import { EmailValidator } from '../../validators/email';
 })
 export class SignupPage {
   public signupForm;
-  emailChanged: boolean = false;
-  passwordChanged: boolean = false;
-  submitAttempt: boolean = false;
   public loading;
 
 
@@ -24,18 +20,10 @@ export class SignupPage {
     public alertCtrl: AlertController) {
 
     this.signupForm = formBuilder.group({
-      email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
-      password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
+      email: ['', Validators.required],
+      password: ['', Validators.compose([Validators.minLength(6), 
+        Validators.required])]
     });
-  }
-
-  /**
-   * Receives an input field and sets the corresponding fieldChanged 
-   * property to 'true' to help with the styles.
-   */
-  elementChanged(input){
-    let field = input.inputControl.name;
-    this[field + "Changed"] = true;
   }
 
   /**
@@ -46,8 +34,6 @@ export class SignupPage {
    * feel free to handle that as you like.
    */
   signupUser(){
-    this.submitAttempt = true;
-
     if (!this.signupForm.valid){
       console.log(this.signupForm.value);
     } else {

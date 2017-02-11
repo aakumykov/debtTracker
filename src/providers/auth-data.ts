@@ -9,7 +9,7 @@ export class AuthData {
 
   constructor(public af: AngularFire) {
     af.auth.subscribe( user => {
-      if (user){ this.fireAuth = user.auth; }
+      this.fireAuth = user.auth;
     });
   }
 
@@ -35,7 +35,7 @@ export class AuthData {
     const userProfile = firebase.database().ref('/userProfile');
     const credential = firebase.auth.EmailAuthProvider.credential(email, password);
 
-    return this.fireAuth.link(credential).then( user => {
+    return firebase.auth().currentUser.link(credential).then( user => {
       userProfile.child(user.uid).update({
         email: email
       });
