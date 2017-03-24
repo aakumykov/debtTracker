@@ -22,7 +22,7 @@ export class BillDetailPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, 
     public platform: Platform, public actionCtrl: ActionSheetController, 
     public billData: BillData, public alertCtrl: AlertController, 
-    public authData: AuthData) {
+    public authData: AuthData, public cameraPlugin: Camera) {
 
       this.billData.getBill(this.navParams.get("billId"))
         .subscribe( billSnap => { this.bill = billSnap });
@@ -78,20 +78,20 @@ export class BillDetailPage {
       });
       alert.present();
     } else {
-      Camera.getPicture({
-      quality : 95,
-      destinationType : Camera.DestinationType.DATA_URL,
-      sourceType : Camera.PictureSourceType.CAMERA,
-      allowEdit : true,
-      encodingType: Camera.EncodingType.PNG,
-      targetWidth: 500,
-      targetHeight: 500,
-      saveToPhotoAlbum: true
-    }).then(imageData => {
-      this.billData.takeBillPhoto(billId, imageData);
-    }, error => {
-      console.log("ERROR -> " + JSON.stringify(error));
-    });
+      this.cameraPlugin.getPicture({
+        quality : 95,
+        destinationType : this.cameraPlugin.DestinationType.DATA_URL,
+        sourceType : this.cameraPlugin.PictureSourceType.CAMERA,
+        allowEdit : true,
+        encodingType: this.cameraPlugin.EncodingType.PNG,
+        targetWidth: 500,
+        targetHeight: 500,
+        saveToPhotoAlbum: true
+      }).then(imageData => {
+        this.billData.takeBillPhoto(billId, imageData);
+      }, error => {
+        console.log("ERROR -> " + JSON.stringify(error));
+      });
     }
   }
 

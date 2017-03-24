@@ -15,6 +15,11 @@ import { SignupPage } from '../pages/signup/signup';
 import { AuthData } from '../providers/auth-data';
 import { BillData } from '../providers/bill-data';
 
+// Import Plugin Providers
+import { Camera } from '@ionic-native/camera';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
+
 // Import the AF2 Module
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
@@ -61,7 +66,10 @@ const myFirebaseAuthConfig = {
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthData,
-    BillData
+    BillData,
+    Camera,
+    SplashScreen,
+    StatusBar
   ]
 })
 export class AppModule {}
