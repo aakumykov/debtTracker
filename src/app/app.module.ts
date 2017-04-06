@@ -1,6 +1,7 @@
-import { NgModule, ErrorHandler } from '@angular/core';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { NgModule } from '@angular/core';
+import { IonicApp, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { BrowserModule } from '@angular/platform-browser';
 
 // Import the Pages you'll use.
 import { LandingPage } from '../pages/landing/landing';
@@ -11,14 +12,7 @@ import { LoginPage } from '../pages/login/login';
 import { ResetPasswordPage } from '../pages/reset-password/reset-password';
 import { SignupPage } from '../pages/signup/signup';
 
-// Importing providers
-import { AuthData } from '../providers/auth-data';
-import { BillData } from '../providers/bill-data';
-
-// Import Plugin Providers
-import { Camera } from '@ionic-native/camera';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { StatusBar } from '@ionic-native/status-bar';
+import { GetProviders } from './app.providers';
 
 // Import the AF2 Module
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
@@ -49,6 +43,7 @@ const myFirebaseAuthConfig = {
     SignupPage
   ],
   imports: [
+    BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig)
   ],
@@ -63,13 +58,6 @@ const myFirebaseAuthConfig = {
     ResetPasswordPage,
     SignupPage
   ],
-  providers: [
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthData,
-    BillData,
-    Camera,
-    SplashScreen,
-    StatusBar
-  ]
+  providers: GetProviders()
 })
 export class AppModule {}
