@@ -1,6 +1,5 @@
 {
-  "name": "debtTracker",
+  "name": "MyDebtTracker",
   "app_id": "",
-  "v2": true,
-  "typescript": true
+  "projectTypeId": "ionic-angular"
 }

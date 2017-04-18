@@ -1,20 +1,15 @@
-import { NgModule } from '@angular/core';
-import { IonicApp, IonicModule } from 'ionic-angular';
-import { MyApp } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { ErrorHandler, NgModule } from '@angular/core';
+import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
+import { Camera } from '@ionic-native/camera';
 
-// Import the Pages you'll use.
-import { LandingPage } from '../pages/landing/landing';
-import { BillDetailPage } from '../pages/bill-detail/bill-detail';
-import { CreateBillPage } from '../pages/create-bill/create-bill';
+import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { LoginPage } from '../pages/login/login';
-import { ResetPasswordPage } from '../pages/reset-password/reset-password';
-import { SignupPage } from '../pages/signup/signup';
+import { AuthProvider } from '../providers/auth/auth';
+import { BillProvider } from '../providers/bill/bill';
 
-import { GetProviders } from './app.providers';
-
-// Import the AF2 Module
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
 // AF2 Settings
@@ -31,16 +26,21 @@ const myFirebaseAuthConfig = {
   method: AuthMethods.Password
 }
 
+class CameraMock extends Camera {
+  getPicture(options){
+    return new Promise( (resolve, reject) => {
+      resolve(`TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlzIHNpbmd1
+      bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2YgdGhlIG1pbmQsIHRoYXQgYnkgY
+      SBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGludWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb2
+      4gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRoZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4=`);
+    });
+  }
+}
+
 @NgModule({
   declarations: [
     MyApp,
-    LandingPage,
-    BillDetailPage,
-    CreateBillPage,
-    HomePage,
-    LoginPage,
-    ResetPasswordPage,
-    SignupPage
+    HomePage
   ],
   imports: [
     BrowserModule,
@@ -50,14 +50,13 @@ const myFirebaseAuthConfig = {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    LandingPage,
-    BillDetailPage,
-    CreateBillPage,
-    HomePage,
-    LoginPage,
-    ResetPasswordPage,
-    SignupPage
+    HomePage
   ],
-  providers: GetProviders()
+  providers: [
+    StatusBar,
+    SplashScreen,
+    {provide: Camera, useClass: CameraMock},
+    {provide: ErrorHandler, useClass: IonicErrorHandler}, AuthProvider, BillProvider
+  ]
 })
 export class AppModule {}

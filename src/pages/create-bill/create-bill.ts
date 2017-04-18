@@ -1,30 +1,32 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { FormBuilder, Validators } from '@angular/forms';
-import { BillData } from '../../providers/bill-data';
+import { IonicPage, NavController } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BillProvider } from '../../providers/bill/bill';
 
+@IonicPage()
 @Component({
   selector: 'page-create-bill',
   templateUrl: 'create-bill.html',
 })
 export class CreateBillPage {
-  public newBillForm;
+  public newBillForm:FormGroup;
 
-  constructor(public navCtrl: NavController, public billData: BillData, 
-    public formBuilder: FormBuilder) {
-    
+  constructor(public navCtrl: NavController, public formBuilder: FormBuilder, 
+  public billProvider: BillProvider) {
+
     this.newBillForm = formBuilder.group({
       name: ['', Validators.required],
       amount: ['', Validators.required],
       dueDate: ['', Validators.required]
     });
+
   }
 
   createBill(){
     if (!this.newBillForm.valid){
       console.log(this.newBillForm.value);
     } else {
-      this.billData.createBill(this.newBillForm.value.name, 
+      this.billProvider.createBill(this.newBillForm.value.name, 
         this.newBillForm.value.amount,this.newBillForm.value.dueDate)
         .then( () => {
         this.navCtrl.pop();
@@ -35,4 +37,5 @@ export class CreateBillPage {
     }
   }
 
+  
 }

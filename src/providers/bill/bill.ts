@@ -7,10 +7,10 @@ import {
 import firebase from 'firebase';
 
 @Injectable()
-export class BillData {
-  billList: FirebaseListObservable<any>;
-  billDetail: FirebaseObjectObservable<any>;
-  userId: string;
+export class BillProvider {
+  public billList: FirebaseListObservable<any>;
+  public billDetail: FirebaseObjectObservable<any>;
+  public userId: string;
 
   constructor(public af: AngularFire) {
     af.auth.subscribe( auth => {
@@ -44,7 +44,5 @@ export class BillData {
         this.billList.update(billId, { picture: pictureSnapshot.downloadURL });
       });
   }
-
-  
 
 }

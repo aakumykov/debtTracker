@@ -1,27 +1,22 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, AlertController } from 'ionic-angular';
-
-// Import modules for Form validation
-import { FormBuilder, Validators } from '@angular/forms';
-
-// Import the Authentication provider.
-import { AuthData } from '../../providers/auth-data';
-
-// Import the pages.
-import { ResetPasswordPage } from '../reset-password/reset-password';
+import { IonicPage, NavController, Loading, LoadingController, AlertController } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthProvider } from '../../providers/auth/auth';
 import { HomePage } from '../home/home';
 
+
+@IonicPage()
 @Component({
   selector: 'page-login',
-  templateUrl: 'login.html'
+  templateUrl: 'login.html',
 })
 export class LoginPage {
-  loginForm: any;
-  loading: any;
-  
-  constructor(public navCtrl: NavController, public authData: AuthData, 
-    public formBuilder: FormBuilder, public alertCtrl: AlertController, 
-    public loadingCtrl: LoadingController) {
+  public loginForm: FormGroup;
+  public loading: Loading;
+
+  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, 
+    public authProvider: AuthProvider, public formBuilder: FormBuilder, 
+    public alertCtrl: AlertController) {
 
       this.loginForm = formBuilder.group({
         email: ['', Validators.required],
@@ -31,14 +26,14 @@ export class LoginPage {
   }
 
   goToResetPassword(){
-    this.navCtrl.push(ResetPasswordPage);
+    this.navCtrl.push('ResetPasswordPage');
   }
 
   loginUser(){
     if (!this.loginForm.valid){
       console.log(this.loginForm.value);
     } else {
-      this.authData.loginUser(this.loginForm.value.email, 
+      this.authProvider.loginUser(this.loginForm.value.email, 
         this.loginForm.value.password).then( () => {
           this.loading.dismiss().then( () => {
             this.navCtrl.setRoot(HomePage);

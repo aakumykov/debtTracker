@@ -2,32 +2,29 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
 import { HomePage } from '../pages/home/home';
-import { LandingPage } from '../pages/landing/landing';
-
 import { AngularFire } from 'angularfire2';
-
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: any;
+  rootPage:any;
 
-  constructor(platform: Platform, af: AngularFire, private statusBar: StatusBar, 
-    private splashScreen: SplashScreen) {
+
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, 
+    af: AngularFire) {
 
     const authListener = af.auth.subscribe( user => {
       if (user){
         this.rootPage = HomePage;
         authListener.unsubscribe();
       } else {
-        this.rootPage = LandingPage;
+        this.rootPage = 'LandingPage';
         authListener.unsubscribe();
       }
     });
-
+    
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -36,3 +33,4 @@ export class MyApp {
     });
   }
 }
+

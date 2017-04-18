@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
-
 import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 import firebase from 'firebase';
 
 @Injectable()
-export class AuthData {
-  fireAuth: any;
-
+export class AuthProvider {
+  fireAuth:any;
+  
   constructor(public af: AngularFire) {
     af.auth.subscribe( user => {
-      if (user) { this.fireAuth = user.auth; }
+      if (user) { 
+        this.fireAuth = user.auth; 
+      }
     });
   }
 
@@ -51,5 +52,4 @@ export class AuthData {
   logoutUser(): any {
     return this.af.auth.logout();
   }
-
 }

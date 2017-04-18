@@ -1,32 +1,36 @@
 import { Component } from '@angular/core';
-import { 
+import {
+  IonicPage,
   NavController, 
   NavParams, 
   ActionSheetController, 
   Platform, 
   AlertController } from 'ionic-angular';
-import { BillData } from '../../providers/bill-data';
-import { AuthData } from '../../providers/auth-data';
+import { BillProvider } from '../../providers/bill/bill';
+import { AuthProvider } from '../../providers/auth/auth';
 import { Camera } from '@ionic-native/camera'
-import { SignupPage } from '../signup/signup';
 
 
+@IonicPage({
+  segment: 'bill/:billId'
+})
 @Component({
   selector: 'page-bill-detail',
-  templateUrl: 'bill-detail.html'
+  templateUrl: 'bill-detail.html',
 })
 export class BillDetailPage {
-  public bill: any;
+  public bill:Object;
   public placeholderPicture: string = "assets/img/debt-collector.jpg";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
-    public platform: Platform, public actionCtrl: ActionSheetController, 
-    public billData: BillData, public alertCtrl: AlertController, 
-    public authData: AuthData, public cameraPlugin: Camera) {
-
-      this.billData.getBill(this.navParams.get("billId"))
+  public actionCtrl: ActionSheetController, public platform: Platform, 
+  public alertCtrl: AlertController, public billProvider: BillProvider, 
+  public authProvider: AuthProvider, public cameraPlugin: Camera) {
+    
+    this.billProvider.getBill(this.navParams.get("billId"))
         .subscribe( billSnap => { this.bill = billSnap });
-    }
+  
+  }
 
   showOptions(billId): void{
     const action = this.actionCtrl.create({
@@ -37,7 +41,7 @@ export class BillDetailPage {
           role: 'destructive',
           icon: !this.platform.is('ios') ? 'trash' : null,
           handler: () => {
-            this.billData.removeBill(billId)
+            this.billProvider.removeBill(billId)
               .then( () => { this.navCtrl.pop(); });
           }
         },
@@ -45,7 +49,7 @@ export class BillDetailPage {
           text: 'Mark as Paid!',
           icon: !this.platform.is('ios') ? 'checkmark' : null,
           handler: () => {
-            this.billData.payBill(billId);
+            this.billProvider.payBill(billId);
           }
         },
         {
@@ -62,7 +66,7 @@ export class BillDetailPage {
   }
 
   uploadPicture(billId): void {
-    if (this.authData.getUser().isAnonymous == true){
+    if (this.authProvider.getUser().isAnonymous == true){
       const alert = this.alertCtrl.create({
         message: `If you want to continue you'll need to
         provide an email and create a password`,
@@ -71,7 +75,7 @@ export class BillDetailPage {
           {
             text: "OK",
             handler: data => {
-              this.navCtrl.push(SignupPage);
+              this.navCtrl.push('SignupPage');
             }
           }
         ]
@@ -88,7 +92,7 @@ export class BillDetailPage {
         targetHeight: 500,
         saveToPhotoAlbum: true
       }).then(imageData => {
-        this.billData.takeBillPhoto(billId, imageData);
+        this.billProvider.takeBillPhoto(billId, imageData);
       }, error => {
         console.log("ERROR -> " + JSON.stringify(error));
       });

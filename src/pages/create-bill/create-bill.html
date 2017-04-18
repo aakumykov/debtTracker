@@ -8,23 +8,23 @@
   <form [formGroup]="newBillForm" (submit)="createBill()" novalidate>
     <ion-item>
       <ion-label stacked>Bill Name</ion-label>
-      <ion-input #name formControlName="name" type="text" placeholder="How do you identify this bill?" 
+      <ion-input formControlName="name" type="text" placeholder="How do you identify this bill?" 
         [class.invalid]="!newBillForm.controls.name.valid && newBillForm.controls.name.dirty">
       </ion-input>
     </ion-item>
     <ion-item class="error-message" 
-    *ngIf="!newBillForm.controls.name.valid && newBillForm.controls.name.dirty">
+      *ngIf="!newBillForm.controls.name.valid && newBillForm.controls.name.dirty">
       <p>You need to enter a name for the bill.</p>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Amount</ion-label>
-      <ion-input #amount formControlName="amount" type="number" placeholder="How much do you have to pay?" 
+      <ion-input formControlName="amount" type="number" placeholder="How much do you have to pay?" 
         [class.invalid]="!newBillForm.controls.amount.valid && newBillForm.controls.amount.dirty">
       </ion-input>
     </ion-item>
     <ion-item class="error-message" 
-    *ngIf="!newBillForm.controls.amount.valid && newBillForm.controls.amount.dirty">
+      *ngIf="!newBillForm.controls.amount.valid && newBillForm.controls.amount.dirty">
       <p>You need to specify an amount</p>
     </ion-item>
 
@@ -36,7 +36,7 @@
     </ion-datetime>
     </ion-item>
     <ion-item class="error-message" 
-    *ngIf="!newBillForm.controls.dueDate.valid && (dueDateChanged || submitAttempt)">
+      *ngIf="!newBillForm.controls.dueDate.valid && newBillForm.controls.dueDate.dirty">
       <p>When do you have to pay this?</p>
     </ion-item>
 
