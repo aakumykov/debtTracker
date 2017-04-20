@@ -23,7 +23,7 @@ export class SignupPage {
   
   }
 
-  signupUser(){
+  signupUser():void {
     if (!this.signupForm.valid){
       console.log(this.signupForm.value);
     } else {

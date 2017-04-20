@@ -28,13 +28,18 @@ export class BillProvider {
       .object(`/userProfile/${this.userId}/billList/${billId}`);
   }
 
-  createBill(name: string, amount: number, dueDate: string = null, paid: boolean = false){
+  createBill(name: string, amount: number, dueDate: string = null, 
+  paid: boolean = false):firebase.Promise<any>{
     return this.billList.push({ name, amount, dueDate, paid });
   }
 
-  removeBill(billId: string): any { return this.billList.remove(billId); }
+  removeBill(billId: string): firebase.Promise<any> { 
+    return this.billList.remove(billId); 
+  }
 
-  payBill(billId: string): any { return this.billList.update(billId, {paid: true}); }
+  payBill(billId: string): firebase.Promise<any> { 
+    return this.billList.update(billId, {paid: true}); 
+  }
 
   takeBillPhoto(billId: string, imageURL: string): any {
     const storageRef = firebase.storage().ref(this.userId);

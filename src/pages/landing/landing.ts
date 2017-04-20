@@ -15,11 +15,9 @@ export class LandingPage {
     public authProvider: AuthProvider) {
   }
 
-  goToLogin(){ 
-    this.navCtrl.push('LoginPage');
-  }
+  goToLogin():void { this.navCtrl.push('LoginPage'); }
 
-  goToBillList(){
+  goToBillList():void {
     this.authProvider.anonymousLogin().then( () => {
       loading.dismiss().then( () => {
         this.navCtrl.setRoot(HomePage);

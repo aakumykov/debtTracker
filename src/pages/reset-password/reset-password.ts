@@ -21,7 +21,7 @@ export class ResetPasswordPage {
     
   }
 
-  resetPassword(){
+  resetPassword():void {
     if (!this.resetPasswordForm.valid){
       console.log(this.resetPasswordForm.value);
     } else {

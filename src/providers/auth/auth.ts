@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
+import { AngularFire, AuthProviders, AuthMethods, FirebaseAuthState } from 'angularfire2';
 import firebase from 'firebase';
 
 @Injectable()
 export class AuthProvider {
-  fireAuth:any;
+  fireAuth:firebase.User;
   
   constructor(public af: AngularFire) {
     af.auth.subscribe( user => {
@@ -14,25 +14,23 @@ export class AuthProvider {
     });
   }
 
-  getUser(): any {
-    return this.fireAuth;
-  }
+  getUser():firebase.User { return this.fireAuth; }
 
-  loginUser(newEmail: string, newPassword: string): any {
+  loginUser(newEmail: string, newPassword: string):firebase.Promise<FirebaseAuthState> {
     return this.af.auth.login({
       email: newEmail,
       password: newPassword
     });
   }
 
-  anonymousLogin(): any {
+  anonymousLogin():firebase.Promise<FirebaseAuthState> {
     return this.af.auth.login({
       provider: AuthProviders.Anonymous,
       method: AuthMethods.Anonymous
     });
   }
 
-  linkAccount(email: string, password: string): any {
+  linkAccount(email: string, password: string):firebase.Promise<FirebaseAuthState> {
     const userProfile = firebase.database().ref('/userProfile');
     const credential = firebase.auth.EmailAuthProvider.credential(email, password);
 
@@ -45,11 +43,9 @@ export class AuthProvider {
     });
   }
 
-  resetPassword(email: string): any {
+  resetPassword(email: string):firebase.Promise<FirebaseAuthState> {
     return firebase.auth().sendPasswordResetEmail(email);
   }
 
-  logoutUser(): any {
-    return this.af.auth.logout();
-  }
+  logoutUser():firebase.Promise<void> { return this.af.auth.logout(); }
 }

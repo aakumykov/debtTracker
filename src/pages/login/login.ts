@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, Loading, LoadingController, AlertController } from 'ionic-angular';
+import { 
+  IonicPage, 
+  NavController, 
+  Loading, 
+  LoadingController, 
+  AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthProvider } from '../../providers/auth/auth';
 import { HomePage } from '../home/home';
@@ -25,11 +30,9 @@ export class LoginPage {
       });
   }
 
-  goToResetPassword(){
-    this.navCtrl.push('ResetPasswordPage');
-  }
+  goToResetPassword():void { this.navCtrl.push('ResetPasswordPage'); }
 
-  loginUser(){
+  loginUser():void {
     if (!this.loginForm.valid){
       console.log(this.loginForm.value);
     } else {
