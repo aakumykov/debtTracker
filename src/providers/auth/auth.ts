@@ -1,36 +1,31 @@
 import { Injectable } from '@angular/core';
-import { AngularFire, AuthProviders, AuthMethods, FirebaseAuthState } from 'angularfire2';
-import firebase from 'firebase';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
+import * as firebase from 'firebase';
 
 @Injectable()
 export class AuthProvider {
-  fireAuth:firebase.User;
+  public fireAuth:firebase.User;
   
-  constructor(public af: AngularFire) {
-    af.auth.subscribe( user => {
+  constructor(public afAuth: AngularFireAuth, public afDatabase: AngularFireDatabase) {
+    this.afAuth.authState.subscribe( user => {
       if (user) { 
-        this.fireAuth = user.auth; 
+        this.fireAuth = user; 
       }
     });
   }
 
   getUser():firebase.User { return this.fireAuth; }
 
-  loginUser(newEmail: string, newPassword: string):firebase.Promise<FirebaseAuthState> {
-    return this.af.auth.login({
-      email: newEmail,
-      password: newPassword
-    });
+  loginUser(newEmail: string, newPassword: string):firebase.Promise<any> {
+    return this.afAuth.auth.signInWithEmailAndPassword(newEmail, newPassword);
   }
 
-  anonymousLogin():firebase.Promise<FirebaseAuthState> {
-    return this.af.auth.login({
-      provider: AuthProviders.Anonymous,
-      method: AuthMethods.Anonymous
-    });
+  anonymousLogin():firebase.Promise<any> {
+    return this.afAuth.auth.signInAnonymously();
   }
 
-  linkAccount(email: string, password: string):firebase.Promise<FirebaseAuthState> {
+  linkAccount(email: string, password: string):firebase.Promise<any> {
     const userProfile = firebase.database().ref('/userProfile');
     const credential = firebase.auth.EmailAuthProvider.credential(email, password);
 
@@ -43,9 +38,9 @@ export class AuthProvider {
     });
   }
 
-  resetPassword(email: string):firebase.Promise<FirebaseAuthState> {
-    return firebase.auth().sendPasswordResetEmail(email);
+  resetPassword(email: string):firebase.Promise<any> {
+    return this.afAuth.auth.sendPasswordResetEmail(email);
   }
 
-  logoutUser():firebase.Promise<void> { return this.af.auth.logout(); }
+  logoutUser():firebase.Promise<void> { return this.afAuth.auth.signOut(); }
 }

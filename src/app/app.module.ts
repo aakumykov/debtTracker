@@ -10,7 +10,9 @@ import { HomePage } from '../pages/home/home';
 import { AuthProvider } from '../providers/auth/auth';
 import { BillProvider } from '../providers/bill/bill';
 
-import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 // AF2 Settings
 const firebaseConfig = {
@@ -20,11 +22,6 @@ const firebaseConfig = {
     storageBucket: "bill-tracker-e5746.appspot.com",
     messagingSenderId: "508248799540"
 };
-
-const myFirebaseAuthConfig = {
-  provider: AuthProviders.Password,
-  method: AuthMethods.Password
-}
 
 class CameraMock extends Camera {
   getPicture(options){
@@ -45,7 +42,9 @@ class CameraMock extends Camera {
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule,
+    AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

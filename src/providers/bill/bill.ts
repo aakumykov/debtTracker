@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import {
-  AngularFire,
-  FirebaseListObservable,
-  FirebaseObjectObservable } from 'angularfire2';
-
-import firebase from 'firebase';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { 
+  AngularFireDatabase, 
+  FirebaseListObservable, 
+  FirebaseObjectObservable } from 'angularfire2/database';
+import * as firebase from 'firebase';
 
 @Injectable()
 export class BillProvider {
@@ -12,10 +12,10 @@ export class BillProvider {
   public billDetail: FirebaseObjectObservable<any>;
   public userId: string;
 
-  constructor(public af: AngularFire) {
-    af.auth.subscribe( auth => {
+  constructor(public afAuth: AngularFireAuth, public afDatabase: AngularFireDatabase) {
+    this.afAuth.authState.subscribe( auth => {
       if (auth){
-        this.billList = af.database.list(`/userProfile/${auth.uid}/billList`);
+        this.billList = this.afDatabase.list(`/userProfile/${auth.uid}/billList`);
         this.userId = auth.uid;
       }
     });
@@ -24,12 +24,12 @@ export class BillProvider {
   getBillList(): FirebaseListObservable<any> { return this.billList; }
 
   getBill(billId: string): FirebaseObjectObservable<any> {
-    return this.billDetail = this.af.database
+    return this.billDetail = this.afDatabase
       .object(`/userProfile/${this.userId}/billList/${billId}`);
   }
 
   createBill(name: string, amount: number, dueDate: string = null, 
-  paid: boolean = false):firebase.Promise<any>{
+    paid: boolean = false):firebase.Promise<any>{
     return this.billList.push({ name, amount, dueDate, paid });
   }
 
