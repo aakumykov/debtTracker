@@ -15,13 +15,17 @@ export class BillProvider {
   constructor(public afAuth: AngularFireAuth, public afDatabase: AngularFireDatabase) {
     this.afAuth.authState.subscribe( auth => {
       if (auth){
+        console.log(auth.uid);
         this.billList = this.afDatabase.list(`/userProfile/${auth.uid}/billList`);
         this.userId = auth.uid;
       }
     });
   }
 
-  getBillList(): FirebaseListObservable<any> { return this.billList; }
+  getBillList(): FirebaseListObservable<any> {
+    console.log(this.billList);
+    return this.billList; 
+  }
 
   getBill(billId: string): FirebaseObjectObservable<any> {
     return this.billDetail = this.afDatabase

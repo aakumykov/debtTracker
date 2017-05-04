@@ -10,8 +10,9 @@ export class HomePage {
   public billList:any;
 
   constructor(public navCtrl: NavController, public actionCtrl: ActionSheetController, 
-  public platform: Platform, public billProvider: BillProvider) {
-    
+  public platform: Platform, public billProvider: BillProvider) {}
+
+  ionViewDidLoad(){
     this.billList = this.billProvider.getBillList();
   }
 
