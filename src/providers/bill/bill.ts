@@ -22,10 +22,7 @@ export class BillProvider {
     });
   }
 
-  getBillList(): FirebaseListObservable<any> {
-    console.log(this.billList);
-    return this.billList; 
-  }
+  getBillList(): FirebaseListObservable<any> { return this.billList; }
 
   getBill(billId: string): FirebaseObjectObservable<any> {
     return this.billDetail = this.afDatabase
