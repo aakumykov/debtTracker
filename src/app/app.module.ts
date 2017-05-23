@@ -26,10 +26,10 @@ const firebaseConfig = {
 class CameraMock extends Camera {
   getPicture(options){
     return new Promise( (resolve, reject) => {
-      resolve(`TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlzIHNpbmd1
-      bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2YgdGhlIG1pbmQsIHRoYXQgYnkgY
-      SBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGludWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb2
-      4gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRoZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4=`);
+      resolve(`iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAIAAAAC64paAAAABmJLR0QAA
+        AAAAAD5Q7t/AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAUklEQVR4nGM4QAFgAOL/uMG
+        7d+8gJCZAaMZrARaArhmXzVjtpLtmiAiZmiH6ydf8jhKbqaoZzscEWE2E2zeqeWA0k
+        wRQNOMCWG2G28+A1wICAAAS2y1ybs6L0AAAAABJRU5ErkJggg==`);
     });
   }
 }
